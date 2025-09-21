@@ -26,6 +26,7 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -40,6 +41,9 @@ const LoginPage = () => {
     },
     onError: (error: ApiError) => {
       toast.error(error.message || "Login failed. Please try again.");
+    },
+    onSettled: () => {
+      reset();
     },
   });
 

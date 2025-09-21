@@ -25,6 +25,7 @@ const RegisterPage = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -42,6 +43,9 @@ const RegisterPage = () => {
     },
     onError: (error: ApiError) => {
       toast.error(error.message || "Registration failed. Please try again.");
+    },
+    onSettled: () => {
+      reset();
     },
   });
 
