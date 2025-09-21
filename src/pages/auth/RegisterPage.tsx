@@ -42,7 +42,15 @@ const RegisterPage = () => {
       navigate("/auth/login");
     },
     onError: (error: ApiError) => {
-      toast.error(error.message || "Registration failed. Please try again.");
+      if (error.errors) {
+        Object.entries(error.errors).forEach(([field, message]) => {
+          toast.error(`${field}: ${message}`);
+        });
+      } else {
+        toast.error(
+          error.responseMessage || "Registration failed. Please try again."
+        );
+      }
     },
     onSettled: () => {
       reset();

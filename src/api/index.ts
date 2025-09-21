@@ -1,7 +1,12 @@
 import { useAuthStore } from "@/stores/auth-store";
 
+import type { ApiError } from "@/types/api";
 import type { LoginRequest, RegisterRequest } from "@/types/api/request";
-import type { LoginResponse, RegisterResponse } from "@/types/api/response";
+import type {
+  LoginResponse,
+  LogoutResponse,
+  RegisterResponse,
+} from "@/types/api/response";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -25,7 +30,12 @@ class ApiClient {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.responseMessage || "API Error");
+      const apiError: ApiError = {
+        responseCode: errorData.responseCode,
+        responseMessage: errorData.responseMessage,
+        errors: errorData.errors,
+      };
+      throw apiError;
     }
 
     return response.json();
@@ -42,6 +52,12 @@ class ApiClient {
     return this.request<RegisterResponse>("/auth/register", {
       method: "POST",
       body: JSON.stringify(data),
+    });
+  }
+
+  async logout(): Promise<LogoutResponse> {
+    return this.request("/auth/logout", {
+      method: "POST",
     });
   }
 

@@ -8,6 +8,7 @@ export interface User {
 }
 
 export interface ApiError {
-  message: string;
-  status?: number;
+  responseCode?: string;
+  responseMessage?: string;
+  errors?: Record<string, string>;
 }

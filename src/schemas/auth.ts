@@ -32,7 +32,7 @@ export const registerSchema = z.object({
   address: z
     .string()
     .min(1, "Address is required")
-    .min(10, "Address must be at least 10 characters")
+    .min(4, "Address must be at least 4 characters")
     .max(200, "Address must be less than 200 characters"),
   password: z
     .string()

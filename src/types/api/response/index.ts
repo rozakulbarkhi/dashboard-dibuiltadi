@@ -1,8 +1,11 @@
 import type { User } from "..";
 
-export interface LoginResponse {
+interface BaseResponse {
   responseCode: string;
   responseMessage: string;
+}
+
+export interface LoginResponse extends BaseResponse {
   accessToken: string;
   code: string;
   name: string;
@@ -17,3 +20,5 @@ export interface RegisterResponse {
   message: string;
   user?: User;
 }
+
+export type LogoutResponse = BaseResponse;

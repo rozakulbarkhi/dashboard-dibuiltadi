@@ -40,7 +40,13 @@ const LoginPage = () => {
       navigate("/dashboard");
     },
     onError: (error: ApiError) => {
-      toast.error(error.message || "Login failed. Please try again.");
+      if (error.errors) {
+        Object.entries(error.errors).forEach(([field, message]) => {
+          toast.error(`${field}: ${message}`);
+        });
+      } else {
+        toast.error(error.responseMessage || "Login failed. Please try again.");
+      }
     },
     onSettled: () => {
       reset();
