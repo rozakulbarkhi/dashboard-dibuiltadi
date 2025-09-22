@@ -31,7 +31,7 @@ export default function DashboardLayout() {
             className="lg:hidden"
             onClick={() => setSidebarOpen(true)}
           >
-            <Menu className="h-4 w-4" />
+            <Menu className="size-5" />
           </Button>
         </div>
 

@@ -207,7 +207,7 @@ export default function CustomersPage() {
           <CardTitle>Search & Filter Customers</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-4 lg:grid-cols-2 grid-cols-1">
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
@@ -427,7 +427,7 @@ export default function CustomersPage() {
                 <div className="flex items-center justify-between sm:justify-end space-x-2 w-full sm:w-auto">
                   <div className="text-left sm:text-right">
                     <p className="text-lg font-semibold">
-                      {customer.achievement || "0"}%
+                      {customer.achievement || "0"}
                     </p>
                     <p className="text-xs text-muted-foreground">Achievement</p>
                   </div>
