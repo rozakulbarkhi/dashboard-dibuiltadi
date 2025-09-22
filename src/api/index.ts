@@ -1,11 +1,27 @@
 import { useAuthStore } from "@/stores/auth-store";
 
 import type { ApiError } from "@/types/api";
-import type { LoginRequest, RegisterRequest } from "@/types/api/request";
 import type {
-  LoginResponse,
-  LogoutResponse,
-  RegisterResponse,
+  AllCustomerRequest,
+  CreateCustomerRequest,
+  GetAllTransactions,
+  LoginRequest,
+  RegisterRequest,
+  UpdateCustomerRequest,
+} from "@/types/api/request";
+import {
+  type UpdateCustomerResponse,
+  type AllCustomerResponse,
+  type CreateCustomerResponse,
+  type GetCustomerResponse,
+  type ListCustomerResponse,
+  type LoginResponse,
+  type LogoutResponse,
+  type RegisterResponse,
+  type ProvincesResponse,
+  type CitiesResponse,
+  type AllTransactionsResponse,
+  type TransactionDetailResponse,
 } from "@/types/api/response";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
@@ -62,48 +78,79 @@ class ApiClient {
     return response;
   }
 
-  async getCustomers() {
-    return this.request("/customers");
+  async getListCustomer() {
+    return this.request<ListCustomerResponse>("/customers/list");
   }
 
-  async getCustomer(id: string) {
-    return this.request(`/customers/${id}`);
+  async getAllCustomers(params: AllCustomerRequest) {
+    const queryParams = new URLSearchParams(Object.entries(params));
+
+    if (params.search) {
+      queryParams.append("search", params.search);
+    }
+
+    if (params.provinceCode) {
+      queryParams.append("provinceCode", params.provinceCode);
+    }
+
+    if (params.cityCode) {
+      queryParams.append("cityCode", params.cityCode);
+    }
+
+    return this.request<AllCustomerResponse>(
+      `/customers?${queryParams.toString()}`
+    );
   }
 
-  // async createCustomer(customer: any) {
-  //   return this.request("/customers", {
-  //     method: "POST",
-  //     body: JSON.stringify(customer),
-  //   });
-  // }
+  async getCustomer(code: string) {
+    return this.request<GetCustomerResponse>(`/customers/${code}`);
+  }
 
-  // async updateCustomer(id: string, customer: any) {
-  //   return this.request(`/customers/${id}`, {
-  //     method: "PUT",
-  //     body: JSON.stringify(customer),
-  //   });
-  // }
-
-  async deleteCustomer(id: string) {
-    return this.request(`/customers/${id}`, {
-      method: "DELETE",
+  async createCustomer(customer: CreateCustomerRequest) {
+    return this.request<CreateCustomerResponse>("/customers", {
+      method: "POST",
+      body: JSON.stringify(customer),
     });
   }
 
-  async getTransactions() {
-    return this.request("/transactions");
+  async updateCustomer(code: string, customer: UpdateCustomerRequest) {
+    return this.request<UpdateCustomerResponse>(`/customers/${code}`, {
+      method: "PUT",
+      body: JSON.stringify(customer),
+    });
   }
 
-  async getTransaction(id: string) {
-    return this.request(`/transactions/${id}`);
+  async getTransactions(params: GetAllTransactions) {
+    const queryParams = new URLSearchParams(Object.entries(params));
+
+    if (params.search) {
+      queryParams.append("search", params.search);
+    }
+
+    if (params.referenceNo) {
+      queryParams.append("referenceNo", params.referenceNo);
+    }
+
+    if (params.customerCode) {
+      queryParams.append("customerCode", params.customerCode);
+    }
+
+    if (params.salesCode) {
+      queryParams.append("salesCode", params.salesCode);
+    }
+
+    return this.request<AllTransactionsResponse>(
+      `/transactions?${queryParams.toString()}`
+    );
   }
 
-  // async createTransaction(transaction: any) {
-  //   return this.request("/transactions", {
-  //     method: "POST",
-  //     body: JSON.stringify(transaction),
-  //   });
-  // }
+  async getTransaction(
+    referenceNo: string
+  ): Promise<TransactionDetailResponse> {
+    return this.request<TransactionDetailResponse>(
+      `/transactions/${referenceNo}`
+    );
+  }
 
   async getDailyTransactions(
     startDate: string,
@@ -144,23 +191,35 @@ class ApiClient {
     return this.request(`/summaries/top-customers?${params.toString()}`);
   }
 
-  // Profile endpoints
-  // async updateProfile(data: any) {
-  //   return this.request("/profile", {
-  //     method: "PUT",
-  //     body: JSON.stringify(data),
-  //   });
-  // }
+  async getProfile() {
+    return this.request("/profile");
+  }
 
-  async updatePassword(currentPassword: string, newPassword: string) {
-    return this.request("/profile/password", {
+  async updatePassword(
+    currentPassword: string,
+    newPassword: string,
+    newPasswordConfirmation: string
+  ) {
+    return this.request("/auth/password", {
       method: "PUT",
-      body: JSON.stringify({ currentPassword, newPassword }),
+      body: JSON.stringify({
+        currentPassword,
+        newPassword,
+        newPasswordConfirmation,
+      }),
     });
   }
 
   async getSales() {
     return this.request("/sales/list");
+  }
+
+  async getProvinces(): Promise<ProvincesResponse> {
+    return this.request<ProvincesResponse>("/provinces/list");
+  }
+
+  async getCities(): Promise<CitiesResponse> {
+    return this.request<CitiesResponse>("/cities/list");
   }
 }
 
