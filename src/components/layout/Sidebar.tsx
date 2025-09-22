@@ -5,8 +5,9 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/stores/auth-store";
-import { navigation } from "@/data/navigation";
+import { navigation, type NavItem, type NavParent } from "@/data/navigation";
 import { apiClient } from "@/api";
+
 import type { ApiError } from "@/types/api";
 import type { LogoutResponse } from "@/types/api/response";
 
@@ -15,6 +16,10 @@ interface SidebarProps {
   setSidebarOpen: (open: boolean) => void;
   onLogoutSuccess: () => void;
 }
+
+const isNavParent = (item: NavItem): item is NavParent => {
+  return "children" in item;
+};
 
 export default function Sidebar({
   sidebarOpen,
@@ -74,7 +79,7 @@ export default function Sidebar({
           <nav className="flex-1 space-y-1 px-4 py-4">
             {navigation.map((item) => (
               <div key={item.name}>
-                {item.children ? (
+                {isNavParent(item) ? (
                   <div className="space-y-1">
                     <div className="flex items-center px-3 py-2 text-sm font-medium text-muted-foreground">
                       <item.icon className="mr-3 h-4 w-4" />

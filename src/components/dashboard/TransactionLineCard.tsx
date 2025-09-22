@@ -10,9 +10,9 @@ import {
 
 import { formattedValue } from "@/utils/formatted-value";
 
-import type { TransactionLineChartProps } from "@/types/components";
+import type { TransactionChartProps } from "@/types/components";
 
-const TransactionLineChart = ({ data }: TransactionLineChartProps) => {
+const TransactionLineChart = ({ data }: TransactionChartProps) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={data}>
