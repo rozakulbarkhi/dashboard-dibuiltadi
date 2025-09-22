@@ -56,9 +56,10 @@ class ApiClient {
   }
 
   async logout(): Promise<LogoutResponse> {
-    return this.request("/auth/logout", {
+    const response = await this.request<LogoutResponse>("/auth/logout", {
       method: "POST",
     });
+    return response;
   }
 
   async getCustomers() {
@@ -89,7 +90,6 @@ class ApiClient {
     });
   }
 
-  // Transaction endpoints
   async getTransactions() {
     return this.request("/transactions");
   }
@@ -105,25 +105,43 @@ class ApiClient {
   //   });
   // }
 
-  // Summary endpoints
-  async getSummary() {
-    return this.request("/summary");
+  async getDailyTransactions(
+    startDate: string,
+    endDate: string,
+    salesCode?: string
+  ) {
+    const params = new URLSearchParams({ startDate, endDate });
+    if (salesCode) params.append("salesCode", salesCode);
+    return this.request(`/summaries/daily-transactions?${params.toString()}`);
   }
 
-  async getDailyTransactions(date: string) {
-    return this.request(`/transactions/daily?date=${date}`);
+  async getMonthlyTransactions(
+    startMonth: string,
+    endMonth: string,
+    salesCode?: string
+  ) {
+    const params = new URLSearchParams({ startMonth, endMonth });
+    if (salesCode) params.append("salesCode", salesCode);
+    return this.request(`/summaries/monthly-transactions?${params.toString()}`);
   }
 
-  async getMonthlyTransactions(month: string, year: string) {
-    return this.request(`/transactions/monthly?month=${month}&year=${year}`);
+  async getYearlyTransactions(year: string, salesCode?: string) {
+    const params = new URLSearchParams({ year });
+    if (salesCode) params.append("salesCode", salesCode);
+    return this.request(`/summaries/yearly-transactions?${params.toString()}`);
   }
 
-  async getYearlyTransactions(year: string) {
-    return this.request(`/transactions/yearly?year=${year}`);
-  }
-
-  async getTopCustomers() {
-    return this.request("/customers/top");
+  async getTopCustomers(
+    startDate: string,
+    endDate: string,
+    limit: number = 10
+  ) {
+    const params = new URLSearchParams({
+      startDate,
+      endDate,
+      limit: Math.max(3, limit).toString(),
+    });
+    return this.request(`/summaries/top-customers?${params.toString()}`);
   }
 
   // Profile endpoints
@@ -139,6 +157,10 @@ class ApiClient {
       method: "PUT",
       body: JSON.stringify({ currentPassword, newPassword }),
     });
+  }
+
+  async getSales() {
+    return this.request("/sales/list");
   }
 }
 
