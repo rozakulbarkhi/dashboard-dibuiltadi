@@ -6,7 +6,7 @@ A modern business dashboard application built with React, TypeScript, and Vite. 
 
 - **Authentication System**: Secure login and registration with JWT token management
 - **Dashboard Overview**: Real-time business metrics and analytics
-- **Customer Management**: Complete CRUD operations for customer data with advanced filtering
+- **Customer Management**: Operations for customer data with advanced filtering
 - **Transaction Tracking**: Comprehensive transaction management and reporting
 - **Analytics & Reports**: Daily, monthly, and yearly transaction summaries with interactive charts
 - **Profile Management**: User profile and password management
