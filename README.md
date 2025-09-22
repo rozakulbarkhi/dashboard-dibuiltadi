@@ -1,4 +1,4 @@
-# Dashboard Dibuiltadi
+# Dashboard Assignment Test | Dibuiltadi
 
 A modern business dashboard application built with React, TypeScript, and Vite. This dashboard provides comprehensive business analytics, customer management, and transaction tracking capabilities.
 
