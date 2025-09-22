@@ -1,69 +1,104 @@
-# React + TypeScript + Vite
+# Dashboard Dibuiltadi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern business dashboard application built with React, TypeScript, and Vite. This dashboard provides comprehensive business analytics, customer management, and transaction tracking capabilities.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Authentication System**: Secure login and registration with JWT token management
+- **Dashboard Overview**: Real-time business metrics and analytics
+- **Customer Management**: Complete CRUD operations for customer data with advanced filtering
+- **Transaction Tracking**: Comprehensive transaction management and reporting
+- **Analytics & Reports**: Daily, monthly, and yearly transaction summaries with interactive charts
+- **Profile Management**: User profile and password management
+- **Responsive Design**: Mobile-first design with modern UI components
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React 19, TypeScript, Vite
+- **Routing**: React Router v7
+- **State Management**: Zustand
+- **Data Fetching**: TanStack Query (React Query)
+- **Forms**: React Hook Form with Zod validation
+- **UI Components**: Radix UI with Tailwind CSS
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **Notifications**: Sonner
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 18+ or Bun
+- A backend API server
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd dashboard-dibuiltadi
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+bun install
+# or
+npm install
 ```
+
+3. Set up environment variables:
+
+```bash
+cp .env-example .env
+```
+
+Update the `VITE_API_URL` in `.env` with your backend API URL.
+
+4. Start the development server:
+
+```bash
+bun dev
+# or
+npm run dev
+```
+
+### Build for Production
+
+```bash
+bun run build
+# or
+npm run build
+```
+
+## Project Structure
+
+```
+src/
+├── api/           # API client and endpoints
+├── components/    # Reusable UI components
+├── hooks/         # Custom React hooks
+├── layouts/       # Layout components
+├── pages/         # Page components
+├── providers/     # Context providers
+├── schemas/       # Zod validation schemas
+├── stores/        # Zustand stores
+├── types/         # TypeScript type definitions
+└── utils/         # Utility functions
+```
+
+## Key Pages
+
+- **Dashboard**: Main overview with key metrics
+- **Summary**: Detailed analytics and reports
+- **Customers**: Customer management interface
+- **Transactions**: Transaction tracking and management
+- **Profile**: User profile and settings
+
+## Contributing
+
+1. Follow the existing code style and conventions
+2. Use TypeScript for type safety
+3. Write meaningful commit messages
+4. Test your changes before submitting
