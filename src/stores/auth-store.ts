@@ -31,7 +31,11 @@ export const useAuthStore = create<AuthState>()(
       },
       logout: () => {
         Cookies.remove("accessToken");
-        set({ user: null, token: null, isAuthenticated: false });
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+        });
       },
     }),
     {
