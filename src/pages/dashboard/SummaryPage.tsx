@@ -20,7 +20,7 @@ export default function SummaryPage() {
             variant="outline"
             size="sm"
             onClick={() => window.location.reload()}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 cursor-pointer"
           >
             <RefreshCw className="h-4 w-4" />
             Refresh
