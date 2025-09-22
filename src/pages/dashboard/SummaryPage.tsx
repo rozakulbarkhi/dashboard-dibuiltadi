@@ -1,4 +1,5 @@
 import { RefreshCw } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { DailyTransactionsWidget } from "@/components/dashboard/DailyTransactionsWidget";
 import { MonthlyTransactionsWidget } from "@/components/dashboard/MonthlyTransactionsWidget";
@@ -10,7 +11,7 @@ export default function SummaryPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Summary</h1>
+          <h1 className="text-2xl font-bold">Summary</h1>
           <p className="text-muted-foreground">
             Comprehensive overview of your business performance
           </p>
